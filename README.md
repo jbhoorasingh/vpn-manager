@@ -43,7 +43,7 @@ A Django-based web application for managing VPN tunnel requests, approvals, and 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/jbhoorasingh/vpn-manager
 cd vpn-tunnel-manager
 ```
 
