@@ -163,6 +163,10 @@ For support:
 - Contact the development team
 - Check documentation in the `/docs` directory
 
+# Screen Captures
+![Application Screenshot](/docs/images/ss_list_tunnels.png)
+![Application Screenshot](/docs/images/ss_new_tunnel.png)
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
