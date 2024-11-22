@@ -1,0 +1,10 @@
+Django==5.0.1
+python-dotenv==1.0.0
+django-crispy-forms==2.1
+crispy-bootstrap5==2023.10
+django-simple-history==3.4.0
+django-filter==23.5
+djangorestframework==3.14.0
+netmiko==4.3.0
+django-axes==6.3.0
+django-bootstrap5==23.3

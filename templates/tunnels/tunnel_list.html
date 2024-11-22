@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>VPN Tunnel Requests</h1>
+    <a href="{% url 'tunnel-create' %}" class="btn btn-primary mb-3">New Request</a>
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Business Unit</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tunnel in tunnels %}
+                <tr>
+                    <td>{{ tunnel.id }}</td>
+                    <td>{{ tunnel.business_unit }}</td>
+                    <td>{{ tunnel.get_status_display }}</td>
+                    <td>{{ tunnel.created_at|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        <a href="{% url 'tunnel-detail' tunnel.pk %}" class="btn btn-sm btn-info">View</a>
+                        {% if perms.tunnels.can_approve_tunnel %}
+                        <a href="{% url 'tunnel-approve' tunnel.pk %}" class="btn btn-sm btn-warning">Review</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

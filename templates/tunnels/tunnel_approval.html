@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Review VPN Tunnel Request #{{ object.id }}</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Request Details</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Business Unit:</strong> {{ object.business_unit }}</p>
+                    <p><strong>Site:</strong> {{ object.site.name }}</p>
+                    <p><strong>Service Owner:</strong> {{ object.service_owner }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Created By:</strong> {{ object.requester }}</p>
+                    <p><strong>Created At:</strong> {{ object.created_at|date:"Y-m-d H:i" }}</p>
+                    <p><strong>Current Status:</strong> {{ object.get_status_display }}</p>
+                </div>
+            </div>
+            <div class="mt-3">
+                <h4>Use Case</h4>
+                <p>{{ object.use_case }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Network Details</h3>
+        </div>
+        <div class="card-body">
+            <h4>Local Networks</h4>
+            <ul>
+                {% for network in object.local_networks.all %}
+                    <li>{{ network.cidr }}</li>
+                {% endfor %}
+            </ul>
+
+            <h4>Remote Networks</h4>
+            <ul>
+                {% for network in object.remote_networks.all %}
+                    <li>{{ network.cidr }}</li>
+                {% endfor %}
+            </ul>
+
+            <p><strong>Peer Gateway:</strong> {{ object.peer_gateway }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>VPN Settings</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Phase 1 (IKE)</h4>
+                    <p><strong>IKE Version:</strong> {{ object.ike_version }}</p>
+                    <p><strong>Encryption:</strong> {{ object.phase1_encryption }}</p>
+                    <p><strong>Authentication:</strong> {{ object.phase1_authentication }}</p>
+                    <p><strong>DH Group:</strong> {{ object.phase1_dh_group }}</p>
+                    <p><strong>Lifetime:</strong> {{ object.phase1_lifetime }} seconds</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Phase 2 (IPSec)</h4>
+                    <p><strong>Encryption:</strong> {{ object.phase2_encryption }}</p>
+                    <p><strong>Authentication:</strong> {{ object.phase2_authentication }}</p>
+                    <p><strong>PFS Group:</strong> {{ object.phase2_pfs_group }}</p>
+                    <p><strong>Lifetime:</strong> {{ object.phase2_lifetime }} seconds</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Review Decision</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+                <a href="{% url 'tunnel-list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

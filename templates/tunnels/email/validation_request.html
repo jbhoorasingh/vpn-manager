@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .button { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background-color: #007bff; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Annual VPN Tunnel Validation Required</h2>
+        
+        <p>Dear Service Owner,</p>
+        
+        <p>The following VPN tunnel requires your annual validation:</p>
+        
+        <ul>
+            <li>Tunnel ID: {{ tunnel.id }}</li>
+            <li>Business Unit: {{ tunnel.business_unit }}</li>
+            <li>Created Date: {{ tunnel.created_at|date:"Y-m-d" }}</li>
+        </ul>
+        
+        <p>Please review the tunnel configuration and validate its continued business need. If no action is taken within 30 days, the tunnel may be flagged for decommissioning.</p>
+        
+        <p>
+            <a href="{{ validation_url }}" class="button">Validate Tunnel</a>
+        </p>
+        
+        <p>If you have any questions, please contact the network security team.</p>
+        
+        <p>Best regards,<br>Network Security Team</p>
+    </div>
+</body>
+</html>

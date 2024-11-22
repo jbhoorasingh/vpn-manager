@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .status-change {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>VPN Tunnel Request Status Update</h2>
+        
+        <p>The status of your VPN tunnel request has been updated:</p>
+        
+        <div class="status-change">
+            <p><strong>Request ID:</strong> {{ tunnel.id }}</p>
+            <p><strong>Business Unit:</strong> {{ tunnel.business_unit }}</p>
+            <p><strong>Previous Status:</strong> {{ old_status }}</p>
+            <p><strong>New Status:</strong> {{ new_status }}</p>
+        </div>
+        
+        {% if tunnel.status == 'IMPLEMENTED' %}
+        <p>Your VPN tunnel has been successfully configured and is now operational.</p>
+        {% elif tunnel.status == 'REJECTED' %}
+        <p>Your request has been rejected. Please review the comments and resubmit if necessary.</p>
+        {% endif %}
+        
+        <p>You can view the full details of your request here:</p>
+        <p>
+            <a href="{{ request.scheme }}://{{ request.get_host }}{% url 'tunnel-detail' tunnel.id %}">
+                View Request Details
+            </a>
+        </p>
+        
+        <p>If you have any questions, please contact the network security team.</p>
+        
+        <p>Best regards,<br>VPN Management System</p>
+    </div>
+</body>
+</html>

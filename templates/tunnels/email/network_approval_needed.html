@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .button { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background-color: #007bff; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>New VPN Tunnel Request Requires Approval</h2>
+        
+        <p>A new VPN tunnel request has been submitted and requires your review:</p>
+        
+        <ul>
+            <li>Request ID: {{ tunnel.id }}</li>
+            <li>Business Unit: {{ tunnel.business_unit }}</li>
+            <li>Requested By: {{ created_by }}</li>
+            <li>Site: {{ tunnel.site.name }}</li>
+        </ul>
+        
+        <h3>Network Details:</h3>
+        <h4>Local Networks:</h4>
+        <ul>
+            {% for network in tunnel.local_networks.all %}
+                <li>{{ network.cidr }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Remote Networks:</h4>
+        <ul>
+            {% for network in tunnel.remote_networks.all %}
+                <li>{{ network.cidr }}</li>
+            {% endfor %}
+        </ul>
+        
+        <p>Please review the request and approve or reject based on network policies.</p>
+        
+        <p>
+            <a href="{{ request.scheme }}://{{ request.get_host }}{% url 'tunnel-detail' tunnel.id %}" class="button">
+                Review Request
+            </a>
+        </p>
+        
+        <p>Best regards,<br>VPN Management System</p>
+    </div>
+</body>
+</html>

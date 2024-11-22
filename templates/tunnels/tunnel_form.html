@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>New VPN Tunnel Request</h1>
+    {% crispy form %}
+</div>
+{% endblock %}
